@@ -36,7 +36,7 @@ Laboratório criado para disponibilização de artefatos relacionados ao curso
       <td>01</td>
       <td>Criação de um Phishing com Kali Linux</td>
       <td align="center">
-        <a href="https://gitlab.com/Mdsoare/cyberceguranca/tree/main/laboratorio-01">
+        <a href="https://github.com/Mdsoare/cybersecurity/tree/main/laboratorio-01">
            <img align="center" alt="Material de Apoio" src="https://img.shields.io/badge/Ver%20Material-30A3DC?style=for-the-badge">
         </a>
       </td>
@@ -45,7 +45,7 @@ Laboratório criado para disponibilização de artefatos relacionados ao curso
       <td>02</td>
       <td>Entendendo um Ransomware na Prática com Python</td>
       <td align="center">
-        <a href="https://gitlab.com/Mdsoare/cyberceguranca/tree/main/laboratorio-02">
+        <a href="https://github.com/Mdsoare/cybersecurity/tree/main/laboratorio-02">
            <img align="center" alt="Material de Apoio" src="https://img.shields.io/badge/Ver%20Material-E94D5F?style=for-the-badge">
         </a>
       </td>
