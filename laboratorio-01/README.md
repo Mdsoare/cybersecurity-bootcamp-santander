@@ -119,9 +119,9 @@ Regardless, this captures all POST on a website
 
 ## Resutados:
 
-![Alt text](./passwd.png "Captura de tela do setoolkit")
+![Alt text](prints/passwd.png "Captura de tela do setoolkit")
 
-![Alt text](./passwd1.png "Captura de tela do setoolkit")
+![Alt text](prints/passwd1.png "Captura de tela do setoolkit")
 
 
 ## Referências:
