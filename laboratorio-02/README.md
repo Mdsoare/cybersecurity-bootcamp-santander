@@ -1,4 +1,11 @@
-## Entendendo um Ransomware na prática com Python
+<h1>
+    <a href="https://www.dio.me/">
+     <img align="center" width="40px" src="https://hermes.digitalinnovation.one/assets/diome/logo-minimized.png"></a>
+    <span>Desafio de projeto</span>
+    <img align="center" width="100px" src="https://hermes.dio.me/tracks/f7103da6-32cf-46a4-be1c-c97067534355.png">    
+</h1>
+
+Disponibilização do **README.md** com orientações do desafio "Entendendo um Ransomware na prática com Python".<br> **Formação Cybersecurity Specialist** da <img width="70px" background-color="black" src="https://hermes.digitalinnovation.one/assets/diome/logo.svg"> [Digital Innovation One](https://www.dio.me/).
 
 **Ferramentas:**
 
