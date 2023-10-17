@@ -49,7 +49,16 @@ Laboratório criado para disponibilização de artefatos relacionados ao curso
            <img align="center" alt="Material de Apoio" src="https://img.shields.io/badge/Ver%20Material-E94D5F?style=for-the-badge">
         </a>
       </td>
-    </tr>    
+    </tr>
+    <tr>
+      <td>03</td>
+      <td>Segurança da informação com Python</td>
+      <td align="center">
+        <a href="https://github.com/Mdsoare/cybersecurity/tree/main/laboratorio-03">
+           <img align="center" alt="Material de Apoio" src="https://img.shields.io/badge/Ver%20Material-30A3DC?style=for-the-badge">
+        </a>
+      </td>
+    </tr>  
   </tbody>
   <tfoot></tfoot>
 </table>
