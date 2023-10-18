@@ -1,7 +1,12 @@
+# -*- coding: utf-8 -*-
+'''
+File: decript.py
+Author: Marcelo Soares
+Description: Script para simular o resgate de um arquivo encriptado por um Ransomware
+Requirement: pip install pyaes
+'''
 import os
 import pyaes
-
-# Script para simular o resgate de um arquivo encriptado por um Ransomware
 
 # Função principal para descriptografar o arquivo de teste.txt
 # Inclui no laboratório um tratamento de erro try-except, mas em um cenário real não estariam
