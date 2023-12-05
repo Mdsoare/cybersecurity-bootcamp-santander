@@ -20,17 +20,8 @@ Repositório criado para a disponibilização de artefatos relacionados ao curso
 
 A  **Formação Cybersecurity Specialist** promove o ensino prático e técnicas voltadas para a área de Cibersegurança, onde são abordados os conceitos e fundamentos de Cibersegurança, Sistemas Operacionais, Redes de computadores, Ferramentas de testes de intrusão e Simulações de ataques em redes.
 
-o **Santander Bootcamp Cibersegurança** é um dos maiores programas gratuitos de tecnologia do Brasil!  São mais de 50 horas de conteúdo com aulas, desafios de código, projetos práticos e mentorias especializadas, que visam capacitar os participantes com as habilidades necessárias para se destacarem e atuarem na área de Cibersegurança.
-
-Temas abordados:
-
-- Princípios de Desenvolvimento Ágil e Colaborativo
-- Desafios de Códigos
-- Fundamentos de Cibersegurança
-- Deep Web e Anonimato
-- Testes de Invasão e Buscas por Vulnerabilidades
-- Conceitos como Pantest, Phishing, Man in the Middle e Ransomware
-
+o **Santander Bootcamp Cibersegurança** é um dos maiores programas gratuitos de tecnologia do Brasil!  São mais de 50 horas de conteúdo com aulas, desafios de código, projetos práticos e mentorias especializadas, que visam capacitar os participantes com as habilidades necessárias para se destacarem e atuarem na área de Cibersegurança. Temas abordados:
+Princípios de Desenvolvimento Ágil e Colaborativo, Desafios de Códigos, Fundamentos de Cibersegurança, Deep Web e Anonimato, Testes de Invasão e Buscas por Vulnerabilidades, Conceitos como Pentest, Phishing, Man in the Middle e Ransomware.
 
 ## Ferramentas 🖥️
 [![Git](https://img.shields.io/badge/Git-000?style=for-the-badge&logo=git&logoColor=E94D5F)](https://git-scm.com/doc) 
