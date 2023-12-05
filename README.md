@@ -1,20 +1,36 @@
 <h1>
     <a href="https://www.dio.me/">
      <img align="center" width="40px" src="https://hermes.digitalinnovation.one/assets/diome/logo-minimized.png"></a>
-    <span> Formação Cybersecurity Specialist</span>
-    <img align="center" width="100px" src="https://hermes.dio.me/tracks/f7103da6-32cf-46a4-be1c-c97067534355.png">    
+    <span> Formação Cybersecurity Specialist e Santander Bootcamp Cibersegurança</span>
+    <img align="center" width="100px" src="https://hermes.dio.me/tracks/f7103da6-32cf-46a4-be1c-c97067534355.png"> 
+     <img align="center" width="100px" src="https://hermes.dio.me/tracks/b092559f-ec20-4401-83e5-d98b6278b7b1.png">     
 </h1>
 
-Repositório criado para fins educacionais, com a disponibilização de materiais relacionados ao curso **Formação Cybersecurity Specialist** da [Digital Innovation One](https://www.dio.me/). 
-<br>
+Repositório criado para a disponibilização de artefatos relacionados ao curso **Formação Cybersecurity Specialist** e **Santander Bootcamp Cibersegurança** da [Digital Innovation One](https://www.dio.me/). 
 <img width="70px" background-color="black" src="https://hermes.digitalinnovation.one/assets/diome/logo.svg">
+<br>
 
 [![Link do Curso](https://img.shields.io/badge/▶-000?style=for-the-badge&logo=movie&logoColor=E94D5F)](https://web.dio.me/track/formacao-cybersecurity) 
 [![Link do Curso](https://img.shields.io/badge/Acesse%20o%20Curso%20na%20Plataforma-E94D5F?style=for-the-badge)](https://web.dio.me/track/formacao-cybersecurity) 
 
+[![Link do Curso](https://img.shields.io/badge/▶-000?style=for-the-badge&logo=movie&logoColor=E94D5F)](https://web.dio.me/track/santander-bootcamp-ciberseguranca) 
+[![Link do Curso](https://img.shields.io/badge/Acesse%20o%20Bootcamp%20na%20Plataforma-E94D5F?style=for-the-badge)](https://web.dio.me/track/santander-bootcamp-ciberseguranca) 
+
 ## Resumo 🎯
 
-Laboratório criado para disponibilização de artefatos relacionados ao curso
+A  **Formação Cybersecurity Specialist** promove o ensino prático e técnicas voltadas para a área de Cibersegurança, onde são abordados os conceitos e fundamentos de Cibersegurança, Sistemas Operacionais, Redes de computadores, Ferramentas de testes de intrusão e Simulações de ataques em redes.
+
+o **Santander Bootcamp Cibersegurança** é um dos maiores programas gratuitos de tecnologia do Brasil!  São mais de 50 horas de conteúdo com aulas, desafios de código, projetos práticos e mentorias especializadas, que visam capacitar os participantes com as habilidades necessárias para se destacarem e atuarem na área de Cibersegurança.
+
+Temas abordados:
+
+- Princípios de Desenvolvimento Ágil e Colaborativo
+- Desafios de Códigos
+- Fundamentos de Cibersegurança
+- Deep Web e Anonimato
+- Testes de Invasão e Buscas por Vulnerabilidades
+- Conceitos como Pantest, Phishing, Man in the Middle e Ransomware
+
 
 ## Ferramentas 🖥️
 [![Git](https://img.shields.io/badge/Git-000?style=for-the-badge&logo=git&logoColor=E94D5F)](https://git-scm.com/doc) 
