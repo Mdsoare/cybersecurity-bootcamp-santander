@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-File: bufferOverFloeIP.py
+File: bufferOverFlowIP.py
 Author: Marcelo Soares
 Description: Neste exemplo, o usuário insere um endereço IP. 
 No entanto, o código não verifica o comprimento do endereço IP antes de tentar analisá-lo. 
