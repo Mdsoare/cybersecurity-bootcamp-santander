@@ -1,0 +1,28 @@
+version: 2
+updates:
+  # 1. GitHub Actions (Workflows e Reusable Actions)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "build(deps-dev)"
+      include: "scope"
+
+  # 2. Python (PyPI via requirements.txt, Pipfile ou pyproject.toml)
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "fix(deps-python)"
+      include: "scope"
+
+  # 3. JavaScript / Node.js (npm via package.json)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "fix(deps-js)"
+      include: "scope"
