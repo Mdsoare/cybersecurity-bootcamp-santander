@@ -2,42 +2,44 @@
 
 # ETAPAS ADICIONAIS:
 # chmod +x generate_hash.sh
-# apt install -y md5sum sha1sum sha256sum sha512sum
+# apt install -y coreutils
 
-# Hash a partir de um texto:
-# ./generate_hash.sh --texto
+generate_hash_texto() {
+    local texto="$1"
+    local tipo="$2"
+    
+    case "$tipo" in
+        md5)    echo -n "$texto" | md5sum ;;
+        sha1)   echo -n "$texto" | sha1sum ;;
+        sha256) echo -n "$texto" | sha256sum ;;
+        sha512) echo -n "$texto" | sha512sum ;;
+        *)      echo "Tipo de hash inválido" ;;
+    esac
+}
 
-# Hash a partir de um arquivo:
-# ./generate_hash.sh --arquivo
+generate_hash_arquivo() {
+    local arquivo="$1"
+    local tipo="$2"
 
-
-generate_hash() {
-    texto="$1"
-    tipo="$2"
-    if [ "$tipo" == "md5" ]; then
-        echo -n "$texto" | md5sum
-    elif [ "$tipo" == "sha1" ]; then
-        echo -n "$texto" | sha1sum
-    elif [ "$tipo" == "sha256" ]; then
-        echo -n "$texto" | sha256sum
-    elif [ "$tipo" == "sha512" ]; then
-        echo -n "$texto" | sha512sum
-    else
-        echo "Tipo de hash inválido"
-    fi
+    case "$tipo" in
+        md5)    md5sum "$arquivo" ;;
+        sha1)   sha1sum "$arquivo" ;;
+        sha256) sha256sum "$arquivo" ;;
+        sha512) sha512sum "$arquivo" ;;
+        *)      echo "Tipo de hash inválido" ;;
+    esac
 }
 
 main() {
-    if [ "$1" == "--texto" ]; then
-        read -p "Digite o texto: " texto
-        read -p "Escolha o tipo de hash (md5, sha1, sha256, sha512): " tipo
-        generate_hash "$texto" "$tipo"
-    elif [ "$1" == "--arquivo" ]; then
-        read -p "Digite o caminho para o arquivo: " arquivo
-        if [ -f "$arquivo" ]; then
-            read -p "Escolha o tipo de hash (md5, sha1, sha256, sha512): " tipo
-            texto=$(cat "$arquivo")
-            generate_hash "$texto" "$tipo"
+    if [[ "$1" == "--texto" ]]; then
+        read -r -p "Digite o texto: " texto
+        read -r -p "Escolha o tipo de hash (md5, sha1, sha256, sha512): " tipo
+        generate_hash_texto "$texto" "$tipo"
+    elif [[ "$1" == "--arquivo" ]]; then
+        read -r -p "Digite o caminho para o arquivo: " arquivo
+        if [[ -f "$arquivo" ]]; then
+            read -r -p "Escolha o tipo de hash (md5, sha1, sha256, sha512): " tipo
+            generate_hash_arquivo "$arquivo" "$tipo"
         else
             echo "Arquivo não encontrado."
         fi
