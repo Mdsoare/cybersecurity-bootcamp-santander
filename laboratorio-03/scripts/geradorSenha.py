@@ -2,25 +2,25 @@
 '''
 File: geradorSenha.py
 Author: Marcelo Soares
-Description: Script para gerar senhas aleatórias
+Description: Script para gerar strings aleatórias
 '''
 
 import string
 import secrets
 
 
-def generate_secret(length=16, characters=None):
+def generate_string(length=16, characters=None):
     if characters is None:
         characters = string.ascii_letters + \
             string.digits + 'ç!@#$%&*()-_=+,.;:/?[]{}'
 
-    result = ''.join(secrets.choice(characters) for _ in range(length))
-    return result
+    data = ''.join(secrets.choice(characters) for _ in range(length))
+    return data
 
 
 def main():
-    generated_secret = generate_secret()
-    print("Senha gerada:", generated_secret)
+    output = generate_string()
+    print("Resultado:", output)
 
 
 if __name__ == "__main__":
