@@ -2,9 +2,9 @@ name: DevSecOps Unified Security Scan
 
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: ["main", "master"]
   pull_request:
-    branches: [ "main", "master" ]
+    branches: ["main", "master"]
 
 permissions:
   actions: read
@@ -16,12 +16,12 @@ jobs:
   # 1. SAST - CodeQL (Python + JavaScript / TypeScript)
   # ---------------------------------------------------------------------------
   sast-codeql:
-    name: SAST (CodeQL - Python & JS)
+    name: SAST (CodeQL - ${{ matrix.language }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'python', 'javascript-typescript' ]
+        language: ["python", "javascript-typescript"]
 
     steps:
       - name: Checkout repository
@@ -31,7 +31,7 @@ jobs:
         if: matrix.language == 'python'
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: "3.x"
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
@@ -54,7 +54,7 @@ jobs:
       - name: Run ShellCheck
         uses: ludeeus/action-shellcheck@master
         with:
-          ignore_paths: 'node_modules .venv'
+          ignore_paths: "node_modules .venv"
 
   # ---------------------------------------------------------------------------
   # 3. SAST - PowerShell (PSScriptAnalyzer)
