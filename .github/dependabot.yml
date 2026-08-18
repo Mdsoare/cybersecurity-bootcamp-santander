@@ -8,6 +8,12 @@ updates:
     commit-message:
       prefix: "build(deps-dev)"
       include: "scope"
+    # Bloqueia falsos positivos de semver-major em Actions oficiais
+    ignore:
+      - dependency-name: "actions/*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "github/codeql-action"
+        update-types: ["version-update:semver-major"]
 
   # 2. Python (PyPI via requirements.txt, Pipfile ou pyproject.toml)
   - package-ecosystem: "pip"
