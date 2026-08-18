@@ -9,18 +9,18 @@ import string
 import secrets
 
 
-def generate_password(length=16, characters=None):
+def generate_secret(length=16, characters=None):
     if characters is None:
         characters = string.ascii_letters + \
-            string.digits + 'ç!@#$%&*()-_=+,.;:/?[]\{\}'
+            string.digits + 'ç!@#$%&*()-_=+,.;:/?[]{}'
 
-    password = ''.join(secrets.choice(characters) for _ in range(length))
-    return password
+    result = ''.join(secrets.choice(characters) for _ in range(length))
+    return result
 
 
 def main():
-    password = generate_password()
-    print("Senha gerada: ", password)
+    generated_secret = generate_secret()
+    print("Senha gerada:", generated_secret)
 
 
 if __name__ == "__main__":
