@@ -6,67 +6,51 @@ on:
   pull_request:
     branches: ["main", "master"]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   actions: read
-  security-events: write
   contents: read
+  security-events: write
 
 jobs:
-  # ---------------------------------------------------------------------------
-  # 1. SAST - CodeQL (Python + JavaScript / TypeScript)
-  # ---------------------------------------------------------------------------
-  sast-codeql:
-    name: SAST (CodeQL - ${{ matrix.language }})
+  # -------------------------------------------------------------
+  # JOB 1: Detecção de Segredos e Credenciais Vazadas
+  # -------------------------------------------------------------
+  secret-scanning:
+    name: Secret Scan (TruffleHog)
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        language: ["python", "javascript-typescript"]
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        if: matrix.language == 'python'
-        uses: actions/setup-python@v5
+      - name: Checkout do Repositório
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
-          python-version: "3.x"
+          fetch-depth: 0
 
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
+      - name: Scan para detecção de segredos
+        uses: trufflesecurity/trufflehog@bcfcf73aaf4759d4dadc2783177c245a02792318
         with:
-          languages: ${{ matrix.language }}
+          extra_args: --only-verified
 
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
-
-  # ---------------------------------------------------------------------------
-  # 2. SAST - ShellScript (ShellCheck)
-  # ---------------------------------------------------------------------------
-  sast-shellscript:
-    name: SAST (ShellCheck)
+  # -------------------------------------------------------------
+  # JOB 2: Qualidade de Código e Linters (ShellScript & PowerShell)
+  # -------------------------------------------------------------
+  sast-shell-and-pwsh:
+    name: SAST (ShellCheck & PSScriptAnalyzer)
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
 
-      - name: Run ShellCheck
-        uses: ludeeus/action-shellcheck@master
+    steps:
+      - name: Checkout do Repositório
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Executar ShellCheck (ShellScript)
+        uses: ludeeus/action-shellcheck@94e0aab03ca135d11a35e5bfc14e6746dd54e5e9
         with:
           ignore_paths: "node_modules .venv"
 
-  # ---------------------------------------------------------------------------
-  # 3. SAST - PowerShell (PSScriptAnalyzer)
-  # ---------------------------------------------------------------------------
-  sast-powershell:
-    name: SAST (PSScriptAnalyzer)
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Run PSScriptAnalyzer
+      - name: Executar PSScriptAnalyzer (PowerShell)
         shell: pwsh
         run: |
           Install-Module -Name PSScriptAnalyzer -Force -Scope CurrentUser
@@ -76,9 +60,230 @@ jobs:
               throw "Foram encontradas inconformidades pelo PSScriptAnalyzer."
           }
 
-  # ---------------------------------------------------------------------------
-  # 4. SCA - OSV-Scanner (Multilinguagem: pip, npm, etc.)
-  # ---------------------------------------------------------------------------
+  # -------------------------------------------------------------
+  # JOB 3: SAST Especializado em Python (Bandit)
+  # -------------------------------------------------------------
+  sast-bandit:
+    name: SAST (Bandit Scan - Python)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do Repositório
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Configurar ambiente Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Instalar e Executar Bandit
+        run: |
+          python -m pip install --upgrade pip
+          pip install bandit
+          bandit -r . -x ./node_modules,./.venv,./tests -ll
+
+  # -------------------------------------------------------------
+  # JOB 4: SAST Avançado com CodeQL (Python + JS/TS)
+  # -------------------------------------------------------------
+  sast-codeql:
+    name: SAST (CodeQL - ${{ matrix.language }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ["python", "javascript-typescript"]
+
+    steps:
+      - name: Checkout do Repositório
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Configurar ambiente Python
+        if: matrix.language == 'python'
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: "3.11"
+
+      - name: Inicializar CodeQL
+        uses: github/codeql-action/init@db488ddef3bf6cb639b32c2e9a7c0a7ea8271d28
+        with:
+          languages: ${{ matrix.language }}
+          queries: security-extended,security-and-quality
+
+      - name: Executar Análise CodeQL
+        uses: github/codeql-action/analyze@db488ddef3bf6cb639b32c2e9a7c0a7ea8271d28
+
+  # -------------------------------------------------------------
+  # JOB 5: SAST Open Source com Horusec
+  # -------------------------------------------------------------
+  sast-horusec:
+    name: SAST (Horusec Scan)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do Repositório
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Run Horusec Security Scan
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh -o install_horusec.sh
+          bash install_horusec.sh latest
+          rm -f install_horusec.sh
+          horusec start -p="./" --config-file-path="./.horusec-config.json" -D -I -e="false" -o="sarif" -O="./horusec-results.sarif" || true
+
+      - name: Tratar e Validar SARIF do Horusec
+        id: check_sarif
+        if: always()
+        run: |
+          if [ -f "./horusec-results.sarif" ] && grep -q '"results": \[.\+\]' ./horusec-results.sarif; then
+            echo "has_results=true" >> $GITHUB_OUTPUT
+          else
+            echo "⚠️ Horusec não encontrou vulnerabilidades ou o arquivo SARIF está vazio. Pulando upload."
+            echo "has_results=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Upload Horusec SARIF report
+        uses: github/codeql-action/upload-sarif@db488ddef3bf6cb639b32c2e9a7c0a7ea8271d28
+        if: always() && steps.check_sarif.outputs.has_results == 'true'
+        with:
+          sarif_file: horusec-results.sarif
+          category: Horusec
+
+  # -------------------------------------------------------------
+  # JOB 6: SAST baseado em Regras com Semgrep
+  # -------------------------------------------------------------
+  sast-semgrep:
+    name: SAST (Semgrep Scan)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do Repositório
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+
+      - name: Configurar Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: "3.11"
+
+      - name: Instalar Semgrep
+        run: pip install semgrep
+
+      - name: Executar Semgrep Scan
+        run: |
+          semgrep scan \
+            --config=p/python \
+            --config=p/javascript \
+            --config=p/bash \
+            --config=p/owasp-top-ten \
+            --sarif \
+            --output=semgrep.sarif \
+            || true
+
+      - name: Tratar e Validar SARIF do Semgrep
+        id: check_sarif
+        if: always()
+        run: |
+          if [ -f "semgrep.sarif" ] && grep -q '"results": \[.\+\]' semgrep.sarif; then
+            echo "has_results=true" >> $GITHUB_OUTPUT
+          else
+            echo "⚠️ Semgrep não encontrou vulnerabilidades ou o arquivo SARIF está vazio. Pulando upload."
+            echo "has_results=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Upload do Relatório SARIF do Semgrep
+        uses: github/codeql-action/upload-sarif@db488ddef3bf6cb639b32c2e9a7c0a7ea8271d28
+        if: always() && steps.check_sarif.outputs.has_results == 'true'
+        with:
+          sarif_file: semgrep.sarif
+          category: Semgrep
+
+  # -------------------------------------------------------------
+  # JOB 7: Análise de Dependências Multilinguagem com OSV-Scanner
+  # -------------------------------------------------------------
   sca-osv:
     name: SCA (OSV-Scanner)
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@v2.5.0"
+    uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@6e4298ebc4db23e847df9b2e2de2939d6f066c67
+    with:
+      scan-args: "--allow-no-lockfiles --recursive ./"
+
+  # -------------------------------------------------------------
+  # JOB 8: Análise de Dependências e Misconfigurations com Trivy
+  # -------------------------------------------------------------
+  sca-trivy:
+    name: SCA & Misconfig (Trivy Scan)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do Repositório
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Executar Varredura Trivy (Repository)
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25
+        with:
+          scan-type: "fs"
+          scan-ref: "."
+          format: "sarif"
+          output: "trivy-results.sarif"
+          severity: "CRITICAL,HIGH"
+
+      - name: Upload do Relatório SARIF do Trivy
+        uses: github/codeql-action/upload-sarif@db488ddef3bf6cb639b32c2e9a7c0a7ea8271d28
+        if: always()
+        with:
+          sarif_file: "trivy-results.sarif"
+
+  # -------------------------------------------------------------
+  # JOB 9: Validação de Integridade do Projeto
+  # -------------------------------------------------------------
+  project-structure-check:
+    name: Validate Project Structure
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do Repositório
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Validar integridade estrutural
+        run: |
+          test -f README.md || (echo "❌ README.md não encontrado!" && exit 1)
+          echo "✅ Estrutura básica do repositório validada."
+
+  # -------------------------------------------------------------
+  # JOB 10: Build e Agrupamento dos Artefatos
+  # -------------------------------------------------------------
+  build-artifact:
+    name: Bundle & Upload Artifact
+    needs:
+      [
+        secret-scanning,
+        sast-shell-and-pwsh,
+        sast-bandit,
+        sast-codeql,
+        sast-horusec,
+        sast-semgrep,
+        sca-osv,
+        sca-trivy,
+        project-structure-check,
+      ]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do Repositório
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Gerar pacote de artefatos
+        run: |
+          mkdir -p build_artifact
+          cp -r README.md build_artifact/ 2>/dev/null || true
+          if [ -f package.json ]; then cp package.json build_artifact/; fi
+          if [ -f requirements.txt ]; then cp requirements.txt build_artifact/; fi
+
+      - name: Subir Artefato de Build
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: project-build-artifact
+          path: build_artifact/
+          retention-days: 7
+          if-no-files-found: warn

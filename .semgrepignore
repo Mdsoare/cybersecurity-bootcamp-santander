@@ -1,0 +1,25 @@
+# Ambientes Virtuais e Caches do Python
+.venv/
+venv/
+env/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+
+# Node.js / JavaScript
+node_modules/
+.npm/
+.yarn/
+dist/
+build/
+
+# PowerShell / ShellScript
+.PowerShell/
+vendor/
+
+# Relatórios, Artefatos e Dumps SARIF
+*.sarif
+*.json
+*.log
+coverage/
+.coverage

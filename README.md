@@ -6,6 +6,28 @@
      <img align="center" width="100px" src="https://hermes.dio.me/tracks/b092559f-ec20-4401-83e5-d98b6278b7b1.png">     
 </h1>
 
+---
+
+<!-- Badges do Topo -->
+[![CI Pipeline](https://github.com/Mdsoare/cybersecurity-bootcamp-santander/actions/workflows/security-scan.yml/badge.svg)](https://github.com/Mdsoare/cybersecurity-bootcamp-santander/actions/workflows/security-scan.yml)
+[![Security Rating](https://img.shields.io/badge/Security-DevSecOps%20Hardened-green?style=flat&logo=github)](https://github.com/Mdsoare/cybersecurity-bootcamp-santander/security/code-scanning)
+![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+
+<!-- Tech Stack -->
+![Python Version](https://img.shields.io/badge/Python-3.11%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Node.js Version](https://img.shields.io/badge/JavaScript-Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![ShellScript](https://img.shields.io/badge/Shell_Script-Bash-4EAA25?style=for-the-badge&logo=gnubash&logoColor=white)
+![PowerShell](https://img.shields.io/badge/PowerShell-5391FE?style=for-the-badge&logo=powershell&logoColor=white)
+
+<!-- DevSecOps Ecosystem -->
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)
+![Dependabot](https://img.shields.io/badge/Dependabot-025E8C?style=for-the-badge&logo=dependabot&logoColor=white)
+![TruffleHog](https://img.shields.io/badge/Secrets-TruffleHog-FF6600?style=for-the-badge&logo=security-scorecard&logoColor=white)
+![SAST & SCA](https://img.shields.io/badge/DevSecOps-SAST%20%26%20SCA-red?style=for-the-badge&logo=github-actions&logoColor=white)
+
+---
+
 Repositório criado para a disponibilização de artefatos relacionados ao curso **Formação Cybersecurity Specialist** e **Santander Bootcamp Cibersegurança** da [Digital Innovation One](https://www.dio.me/).
 <img width="70px" background-color="black" src="https://hermes.digitalinnovation.one/assets/diome/logo.svg">
 <br>
