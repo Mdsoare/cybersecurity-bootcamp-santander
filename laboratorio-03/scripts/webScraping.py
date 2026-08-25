@@ -3,11 +3,12 @@
 File: webScraping.py
 Author: Marcelo Soares
 Description: Script para Web Scraping usando BeautifulSoup
-Requirement: pip install requests BeautifulSoup4
+Requirement: pip install requests BeautifulSoup4 lxml
 '''
 
 import requests
 from bs4 import BeautifulSoup
+
 
 def realizar_web_scraping(url, parser='lxml'):
     try:
@@ -19,7 +20,7 @@ def realizar_web_scraping(url, parser='lxml'):
         content_type = response.headers.get('Content-Type', '').lower()
         if 'html' not in content_type:
             print('A URL não contém conteúdo HTML.')
-            return
+            return None
 
         # 'soup' recebe o conteúdo HTML da URL
         soup = BeautifulSoup(response.content, parser)
@@ -30,14 +31,18 @@ def realizar_web_scraping(url, parser='lxml'):
         return links
     except requests.exceptions.RequestException as e:
         print(f"Erro na solicitação HTTP: {e}")
+        return None
     except Exception as e:
         print(f"Erro inesperado: {e}")
+        return None
+
 
 if __name__ == "__main__":
-    url = input('Digite a URL: ')
-    links = realizar_web_scraping(url)
+    url = input('Digite a URL: ').strip()
+    if url:
+        links = realizar_web_scraping(url)
 
-    if links:
-        print("Links encontrados:")
-        for link in links:
-            print(link)
+        if links:
+            print("Links encontrados:")
+            for link in links:
+                print(link)
