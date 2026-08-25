@@ -22,9 +22,9 @@ import base64
 
 def gerar_hash(texto, tipo):
     if tipo == 'md5':
-        return hashlib.md5(texto.encode('utf-8')).hexdigest()
+        return hashlib.md5(texto.encode('utf-8'), usedforsecurity=False).hexdigest()
     elif tipo == 'sha1':
-        return hashlib.sha1(texto.encode('utf-8')).hexdigest()
+        return hashlib.sha1(texto.encode('utf-8'), usedforsecurity=False).hexdigest()
     elif tipo == 'sha256':
         return hashlib.sha256(texto.encode('utf-8')).hexdigest()
     elif tipo == 'sha512':

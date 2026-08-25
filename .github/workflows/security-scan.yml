@@ -76,11 +76,21 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Instalar e Executar Bandit
+      - name: Instalar Bandit
         run: |
           python -m pip install --upgrade pip
-          pip install bandit
-          bandit -r . -x ./node_modules,./.venv,./tests -ll
+          pip install bandit bandit-sarif-formatter
+
+      - name: Executar Bandit Scan (Relatório SARIF)
+        run: |
+          bandit -r . -x ./node_modules,./.venv,./tests -f sarif -o bandit-results.sarif || true
+
+      - name: Upload do Relatório SARIF do Bandit
+        uses: github/codeql-action/upload-sarif@db488ddef3bf6cb639b32c2e9a7c0a7ea8271d28
+        if: always()
+        with:
+          sarif_file: bandit-results.sarif
+          category: Bandit
 
   # -------------------------------------------------------------
   # JOB 4: SAST Avançado com CodeQL (Python + JS/TS)

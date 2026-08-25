@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 def realizar_web_scraping(url, parser='lxml'):
     try:
         # Faz a solicitação HTTP e verifica se a resposta é bem-sucedida
-        response = requests.get(url)
+        response = requests.get(url, timeout=10)
         response.raise_for_status()
 
         # Verifique o tipo de conteúdo da resposta para evitar parsing incorreto

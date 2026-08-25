@@ -13,7 +13,7 @@ import re
 def start(url):
 
     wordlist = []
-    source_code = requests.get(url).text
+    source_code = requests.get(url, timeout=10).text
 
     soup = BeautifulSoup(source_code, 'html.parser')
 

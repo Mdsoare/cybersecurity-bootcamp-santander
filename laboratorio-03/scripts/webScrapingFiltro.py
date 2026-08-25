@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup
 
 # url = input("Digite a URL: ")
 url = "https://www.climatempo.com.br/"
-site = requests.get(url).content
+site = requests.get(url, timeout=10).content
 soup = BeautifulSoup(site, 'html.parser')
 
 # Use uma lista de classes CSS para acessar o elemento
