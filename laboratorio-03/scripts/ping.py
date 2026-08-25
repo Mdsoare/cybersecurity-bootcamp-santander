@@ -5,9 +5,9 @@ Author: Marcelo Soares
 Description: Desenvolvendo um script para executar um ping a partir de um arquivo 'host.txt'
 '''
 
-import os
-import time
 import platform
+import subprocess
+import time
 
 
 def ping_hosts_from_file(filename):
@@ -19,17 +19,23 @@ def ping_hosts_from_file(filename):
 
     '''
     try:
-        with open(filename, 'r') as file:
+        with open(filename, 'r', encoding='utf-8') as file:
             host_list = file.read().splitlines()
 
+        param = '-n' if platform.system() == 'Windows' else '-c'
+
         for ip in host_list:
+            # Ignora linhas em branco no arquivo de hosts
+            if not ip.strip():
+                continue
+
             print(f'Verificando o IP: {ip}')
             print('-' * 60)
 
-            if platform.system() == 'Windows':
-                os.system(f'ping -n 2 {ip}')
-            else:
-                os.system(f'ping -c 2 {ip}')
+            try:
+                subprocess.run(['ping', param, '2', ip], check=True)
+            except subprocess.CalledProcessError:
+                print(f'Falha ao responder o ping para o IP: {ip}')
 
             print('=' * 60)
             time.sleep(5)
