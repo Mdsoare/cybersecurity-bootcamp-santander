@@ -46,7 +46,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
 
       - name: Executar ShellCheck (ShellScript)
-        uses: ludeeus/action-shellcheck@94e0aab03ca135d11a35e5bfc14e6746dd54e5e9
+        uses: ludeeus/action-shellcheck@00cae500b08a931fb5698e11e79bfbd38e612a38 # v2.0.0
         with:
           ignore_paths: "node_modules .venv"
 
@@ -75,7 +75,6 @@ jobs:
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
         with:
           python-version: "3.11"
-          cache: "pip"
 
       - name: Instalar e Executar Bandit
         run: |
