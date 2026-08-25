@@ -80,42 +80,43 @@ def generate_report(directory, report_file):
 
 
 def main_menu():
-    while True:
-        print("\nMenu ClamAV:")
-        print("1. Atualizar o ClamAV")
-        print("2. Verificar um diretório")
-        print("3. Agendar verificação em um diretório")
-        print("4. Gerar relatório de verificação")
-        print("5. Sair")
-        choice = input("Escolha uma opção (1/2/3/4/5): ").strip()
+    print("\nMenu ClamAV:")
+    print("1. Atualizar o ClamAV")
+    print("2. Verificar um diretório")
+    print("3. Agendar verificação em um diretório")
+    print("4. Gerar relatório de verificação")
+    print("5. Sair")
+    choice = input("Escolha uma opção (1/2/3/4/5): ").strip()
 
-        if choice == "1":
-            update_clamav()
-        elif choice == "2":
-            directory_to_scan = input("Digite o caminho do diretório a ser verificado: ")
-            scan_directory(directory_to_scan)
-        elif choice == "3":
-            directory_to_scan = input("Digite o caminho do diretório a ser verificado: ")
-            try:
-                interval_minutes = int(input("Digite o intervalo em minutos para a verificação: "))
-                schedule_scan(directory_to_scan, interval_minutes)
-            except ValueError:
-                print("Intervalo inválido. Digite um número inteiro.")
-        elif choice == "4":
-            directory_to_scan = input("Digite o caminho do diretório a ser verificado: ")
-            report_file = input("Digite o caminho do arquivo de relatório: ")
-            generate_report(directory_to_scan, report_file)
-        elif choice == "5":
-            return True
-        else:
-            print("Opção inválida. Tente novamente.")
+    if choice == "1":
+        update_clamav()
+    elif choice == "2":
+        directory_to_scan = input("Digite o caminho do diretório a ser verificado: ")
+        scan_directory(directory_to_scan)
+    elif choice == "3":
+        directory_to_scan = input("Digite o caminho do diretório a ser verificado: ")
+        try:
+            interval_minutes = int(input("Digite o intervalo em minutos para a verificação: "))
+            schedule_scan(directory_to_scan, interval_minutes)
+        except ValueError:
+            print("Intervalo inválido. Digite um número inteiro.")
+    elif choice == "4":
+        directory_to_scan = input("Digite o caminho do diretório a ser verificado: ")
+        report_file = input("Digite o caminho do arquivo de relatório: ")
+        generate_report(directory_to_scan, report_file)
+    elif choice == "5":
+        return True
+    else:
+        print("Opção inválida. Tente novamente.")
+
     return False
 
 
 if __name__ == "__main__":
-    should_exit = main_menu()
+    should_exit = False
+    while not should_exit:
+        should_exit = main_menu()
 
-    if not should_exit:
-        while True:
-            schedule.run_pending()
-            time.sleep(1)
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
