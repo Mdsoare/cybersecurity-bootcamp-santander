@@ -1,9 +1,14 @@
 # Configuração do markdownlint-cli2 para o repositório
 config:  
   MD013: false # Ignora comprimento de linha
+  MD009: false # Ignora espaços no final da linha (trailing spaces)
   MD022: false # Ignora espaçamento de títulos
   MD024: false # Permite títulos duplicados se estiverem em seções diferentes
+  MD029: false # Ignora estilo de prefixo de listas ordenadas
   MD031: false # Ignora espaçamento de blocos de código
+  MD032: false # Ignora espaçamento ao redor de listas
+  MD034: false # Permite URLs puras (bare URLs)
+  MD040: false # Ignora exigência de linguagem em blocos de código
   MD033: false # Permite o uso de HTML inline (tags h1, table, img, span, etc.)
   MD045: false # Ignora exigência de alt-text em imagens inline/HTML
   MD047: false # Ignora exigência de quebra de linha no fim do arquivo

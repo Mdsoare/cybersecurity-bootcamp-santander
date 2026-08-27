@@ -135,6 +135,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install flake8 black
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Validar Sintaxe e Boas Práticas (Flake8)
         run: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
@@ -309,14 +310,24 @@ jobs:
           python-version: "3.11"
           cache: "pip"
 
-      - name: Instalar Dependências e Pip-Audit
+      - name: Instalar Pip-Audit
         run: |
           python -m pip install --upgrade pip "setuptools>=83.0.0"
           pip install pip-audit
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      - name: Auditoria de Segurança de Dependências
-        run: pip-audit
+      - name: Auditoria de Segurança de Dependências Recursiva
+        run: |
+          # Procura por todos os requirements.txt em qualquer subdiretório e executa o audit
+          found=0
+          for req in $(find . -name "requirements.txt"); do
+            echo "🔍 Auditando dependências em: $req"
+            pip-audit -r "$req"
+            found=1
+          done
+          
+          if [ $found -eq 0 ]; then
+            echo "⚠️ Nenhum arquivo requirements.txt encontrado nos subdiretórios. Pulando auditoria."
+          fi
 
 
   # -------------------------------------------------------------
