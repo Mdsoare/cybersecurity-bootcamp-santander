@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-'''
+"""
 File: clamav.py
 Author: Marcelo Soares
 Description: Código para uso do antivírus clamav
-'''
+"""
 
 import shutil
 import subprocess  # nosec B404
@@ -12,13 +12,13 @@ import schedule
 
 
 def _get_bin_path(binary_name, default_path):
-    '''Retorna o caminho absoluto do executável ou fallback padronizado.'''
+    """Retorna o caminho absoluto do executável ou fallback padronizado."""
     return shutil.which(binary_name) or default_path
 
 
 def update_clamav():
-    sudo_bin = _get_bin_path('sudo', '/usr/bin/sudo')
-    freshclam_bin = _get_bin_path('freshclam', '/usr/bin/freshclam')
+    sudo_bin = _get_bin_path("sudo", "/usr/bin/sudo")
+    freshclam_bin = _get_bin_path("freshclam", "/usr/bin/freshclam")
     try:
         subprocess.run([sudo_bin, freshclam_bin], check=True)  # nosec B603
         print("ClamAV foi atualizado com sucesso.")
@@ -32,13 +32,13 @@ def scan_directory(directory):
         print("Caminho do diretório inválido.")
         return
 
-    clamscan_bin = _get_bin_path('clamscan', '/usr/bin/clamscan')
+    clamscan_bin = _get_bin_path("clamscan", "/usr/bin/clamscan")
     try:
         result = subprocess.run(
-            [clamscan_bin, '-r', directory_clean],
+            [clamscan_bin, "-r", directory_clean],
             capture_output=True,
             text=True,
-            check=True
+            check=True,
         )  # nosec B603
         output = result.stdout
         if "Infected files: 0" in output:
@@ -47,7 +47,9 @@ def scan_directory(directory):
             print(f"Vírus encontrados no diretório '{directory_clean}':")
             print(output)
     except subprocess.CalledProcessError as e:
-        print(f"Erro ao executar a verificação de antivírus: {e.stderr if e.stderr else e}")
+        print(
+            f"Erro ao executar a verificação de antivírus: {e.stderr if e.stderr else e}"
+        )
 
 
 def schedule_scan(directory, interval_minutes):
@@ -61,13 +63,13 @@ def generate_report(directory, report_file):
         print("Caminho do diretório ou do relatório inválido.")
         return
 
-    clamscan_bin = _get_bin_path('clamscan', '/usr/bin/clamscan')
+    clamscan_bin = _get_bin_path("clamscan", "/usr/bin/clamscan")
     try:
         result = subprocess.run(
-            [clamscan_bin, '-r', directory_clean, '--log', report_file_clean],
+            [clamscan_bin, "-r", directory_clean, "--log", report_file_clean],
             capture_output=True,
             text=True,
-            check=True
+            check=True,
         )  # nosec B603
         output = result.stdout
         if "Infected files: 0" in output:
@@ -76,7 +78,9 @@ def generate_report(directory, report_file):
             print(f"Vírus encontrados no diretório '{directory_clean}':")
             print(output)
     except subprocess.CalledProcessError as e:
-        print(f"Erro ao executar a verificação de antivírus: {e.stderr if e.stderr else e}")
+        print(
+            f"Erro ao executar a verificação de antivírus: {e.stderr if e.stderr else e}"
+        )
 
 
 def main_menu():
@@ -96,7 +100,9 @@ def main_menu():
     elif choice == "3":
         directory_to_scan = input("Digite o caminho do diretório a ser verificado: ")
         try:
-            interval_minutes = int(input("Digite o intervalo em minutos para a verificação: "))
+            interval_minutes = int(
+                input("Digite o intervalo em minutos para a verificação: ")
+            )
             schedule_scan(directory_to_scan, interval_minutes)
         except ValueError:
             print("Intervalo inválido. Digite um número inteiro.")

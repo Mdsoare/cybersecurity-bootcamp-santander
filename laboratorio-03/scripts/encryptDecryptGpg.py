@@ -1,27 +1,30 @@
 # -*- coding: utf-8 -*-
-'''
+"""
 File: encryptDecrypt.py
 Author: Marcelo Soares
 Description: Código para uso de criptografia GPG
 Requirement: pip install python-gnupg
-'''
+"""
+
 import gnupg
 
+
 def gerar_chave(gpg, nome, email, senha):
-    chave = gpg.gen_key(gpg.gen_key_input(
-        name_real=nome,
-        name_email=email,
-        passphrase=senha
-    ))
+    chave = gpg.gen_key(
+        gpg.gen_key_input(name_real=nome, name_email=email, passphrase=senha)
+    )
     return chave
+
 
 def criptografar_texto(gpg, texto, destinatario):
     texto_criptografado = gpg.encrypt(texto, destinatario)
     return texto_criptografado.data.decode()
 
+
 def descriptografar_texto(gpg, texto_criptografado, senha):
     texto_descriptografado = gpg.decrypt(texto_criptografado, passphrase=senha)
     return texto_descriptografado.data.decode()
+
 
 def menu():
     print("===== MENU DE CRIPTOGRAFIA =====")
@@ -31,6 +34,7 @@ def menu():
     print("4. Sair")
     escolha = input("Escolha uma opção: ")
     return escolha
+
 
 gpg = gnupg.GPG()
 

@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
-'''
+"""
 File: webScrapingFiltro.py
 Author: Marcelo Soares
 Description: Script para Web Scraping usando BeautifulSoup
 Requirement: pip install requests BeautifulSoup4
-'''
+"""
+
 import requests
 from bs4 import BeautifulSoup
 
 # url = input("Digite a URL: ")
 url = "https://www.climatempo.com.br/"
 site = requests.get(url, timeout=10).content
-soup = BeautifulSoup(site, 'html.parser')
+soup = BeautifulSoup(site, "html.parser")
 
 # Use uma lista de classes CSS para acessar o elemento
 # temperatura = soup.find("span", class_=["_block", "_margin-b-5", "-gray"])
@@ -20,7 +21,7 @@ temperatura = soup.find("b", class_=["title"])
 
 if temperatura is not None:
     print("Título: ", soup.title.string)
-    print("Adminstrador: ", soup.find('admin'))
+    print("Adminstrador: ", soup.find("admin"))
     print("1ª Tag 'a': ", soup.a.string)
     print("1ª Tag 'p': ", soup.p.string)
     print("1ª Tag 'span': ", soup.span)

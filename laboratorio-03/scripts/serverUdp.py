@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-'''
+"""
 File: clienteUcp.py
 Author: Marcelo Soares
 Description: Desenvolvendo um script para executar um servidor local UDP
-'''
+"""
 
 import socket
 
@@ -15,11 +15,11 @@ def main():
 
         # hostAlvo = input("Digite o host ou IP a ser conectado: ")
         # portAlvo = int(input("Digite a porta a ser conectada: "))
-        host = 'localhost'
+        host = "localhost"
         porta = 5432
 
         s.bind((host, porta))
-        mensagem = 'Servidor: Olá cliente, e aí... blz?'
+        mensagem = "Servidor: Olá cliente, e aí... blz?"
 
         while True:
             dados, endereco = s.recvfrom(4096)

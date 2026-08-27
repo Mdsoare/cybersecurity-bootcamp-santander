@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
-'''
+"""
 File: bufferOverFlowIP.py
 Author: Marcelo Soares
-Description: Neste exemplo, o usuário insere um endereço IP. 
-No entanto, o código não verifica o comprimento do endereço IP antes de tentar analisá-lo. 
-Se o usuário inserir uma string muito longa, isso poderia levar a um buffer overflow e um 
+Description: Neste exemplo, o usuário insere um endereço IP.
+No entanto, o código não verifica o comprimento do endereço IP antes de tentar analisá-lo.
+Se o usuário inserir uma string muito longa, isso poderia levar a um buffer overflow e um
 erro de exceção não tratada.
-'''
+"""
 
 import ipaddress
+
 
 def parse_ip(ip_input):
     try:
@@ -17,11 +18,12 @@ def parse_ip(ip_input):
     except ValueError:
         return "Endereço IP inválido"
 
+
 ip_input = input("Digite um endereço IP: ")
 result = parse_ip(ip_input)
 print(result)
 
-'''
+"""
 # REMEDIAÇÃO: Para remediar essa vulnerabilidade, podemos adicionar uma verificação do comprimento da string antes de passá-la para a função 'ipaddress.ip_address'
 
 import ipaddress
@@ -42,4 +44,4 @@ ip_input = input("Digite um endereço IP: ")
 result = parse_ip(ip_input)
 print(result)
 
-'''
+"""

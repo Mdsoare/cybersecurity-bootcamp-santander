@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-'''
+"""
 File: clienteTcp.py
 Author: Marcelo Soares
 Description: Desenvolvendo um script para executar um cliente TCP
-'''
+"""
 
 import socket
 

