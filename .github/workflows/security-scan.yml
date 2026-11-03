@@ -30,7 +30,7 @@ jobs:
           fetch-depth: 0
 
       - name: Scan para detecção de segredos
-        uses: trufflesecurity/trufflehog@e63326d6545de8f425d93ce24078c6e68d83f70e
+        uses: trufflesecurity/trufflehog@31ce31ee1abbcc7dc8eee5764c17121c3044c8b2
 
   # -------------------------------------------------------------
   # JOB 2: Detecção de Segredos (Gitleaks)
@@ -126,7 +126,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
 
       - name: Configurar ambiente Python
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0
         with:
           python-version: "3.11"
           cache: "pip"
@@ -156,7 +156,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
 
       - name: Configurar ambiente Python
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0
         with:
           python-version: "3.11"
 
@@ -170,7 +170,7 @@ jobs:
           bandit -r . -x ./node_modules,./.venv,./tests -f sarif -o bandit-results.sarif || true
 
       - name: Upload do Relatório SARIF do Bandit
-        uses: github/codeql-action/upload-sarif@6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee
+        uses: github/codeql-action/upload-sarif@9b3254085494b55a0f7c4c2b3d2d52cc712ce370
         if: always()
         with:
           sarif_file: bandit-results.sarif
@@ -193,18 +193,18 @@ jobs:
 
       - name: Configurar ambiente Python
         if: matrix.language == 'python'
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0
         with:
           python-version: "3.11"
 
       - name: Inicializar CodeQL
-        uses: github/codeql-action/init@6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee
+        uses: github/codeql-action/init@9b3254085494b55a0f7c4c2b3d2d52cc712ce370
         with:
           languages: ${{ matrix.language }}
           queries: security-extended,security-and-quality
 
       - name: Executar Análise CodeQL
-        uses: github/codeql-action/analyze@6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee
+        uses: github/codeql-action/analyze@9b3254085494b55a0f7c4c2b3d2d52cc712ce370
 
   # -------------------------------------------------------------
   # JOB 9: SAST Open Source com Horusec
@@ -236,7 +236,7 @@ jobs:
           fi
 
       - name: Upload Horusec SARIF report
-        uses: github/codeql-action/upload-sarif@6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee
+        uses: github/codeql-action/upload-sarif@9b3254085494b55a0f7c4c2b3d2d52cc712ce370
         if: always() && steps.check_sarif.outputs.has_results == 'true'
         with:
           sarif_file: horusec-results.sarif
@@ -256,7 +256,7 @@ jobs:
           fetch-depth: 0
 
       - name: Configurar Python
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0
         with:
           python-version: "3.11"
 
@@ -286,7 +286,7 @@ jobs:
           fi
 
       - name: Upload do Relatório SARIF do Semgrep
-        uses: github/codeql-action/upload-sarif@6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee
+        uses: github/codeql-action/upload-sarif@9b3254085494b55a0f7c4c2b3d2d52cc712ce370
         if: always() && steps.check_sarif.outputs.has_results == 'true'
         with:
           sarif_file: semgrep.sarif
@@ -305,7 +305,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
 
       - name: Configurar ambiente Python
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0
         with:
           python-version: "3.11"
           cache: "pip"
@@ -360,7 +360,7 @@ jobs:
           severity: "CRITICAL,HIGH"
 
       - name: Upload do Relatório SARIF do Trivy
-        uses: github/codeql-action/upload-sarif@6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee
+        uses: github/codeql-action/upload-sarif@9b3254085494b55a0f7c4c2b3d2d52cc712ce370
         if: always()
         with:
           sarif_file: "trivy-results.sarif"
